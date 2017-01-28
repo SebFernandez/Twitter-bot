@@ -5,6 +5,6 @@ The objective of the bot is to assist through specific tweet commands. Meanwhile
 **Made with Python and :heart:.**
 
 - [X] Tweet.
-- [ ] Reply.
-- [ ] Retweet.
+- [X] Reply.
+- [X] Retweet.
 - [ ] Replies to command tweet.
