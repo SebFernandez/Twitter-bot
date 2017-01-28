@@ -13,64 +13,45 @@ def sentence ():
 	phrase = art [r1] + ' ' + verbs [r2] + ' ' + adj [r3] + '.'
 	return phrase 
 
+def read_ids():
+	f = open("IDS.txt", "r")
+	ids = f.read()
+	f.close()
+	return ids
+
+def write_id(id):
+	f = open("IDS.txt", "w")
+	f.write(str(id))
+	f.close()
+
+def log_tweet(x, now):
+	msj = "Tweet nro: " + str (x) + "			" + str (now.hour) + ":" + str (now.minute) 
+	print (" ")
+	print (msj)
+	
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = API(auth)
 
-f = open ("IDS.txt", "r")
-IDS = f.read ()
-#IDS = int (IDS)
-f.close()
+IDS = read_ids()
 
-x = 0
+run = 0
 while True:
 	now = datetime.now()
-	twts = api.search (q='@Bot_en_gel', since_id = IDS)
+	tweets = api.search(q='@Bot_en_gel', since_id = IDS)
 
-	for t in twts:
-		if re.search ('^@Bot_en_gel', t.text):
-			try:
-				t.retweet ()
-			except TweepError as e:
-				print (e.reason)
+	try
+		for tweet in tweets:
+			tweet.retweet()
 
-			except StopIteration:
-				break
-
-			replyname = t.user.screen_name
-			sent = sentence ()
+			replyname = tweet.user.screen_name
+			sent = sentence()
 			reply = "@" + replyname + " " + sent
-			api.update_status (status = reply)
-			print ("Tweet contestado")
-			print "                 " + reply
-			IDS = t.id
-			f = open ("IDS.txt", "w")
-			f.write (str (IDS))
-			f.close ()
 
-	if (now.hour % 2 == 0):
-		x = x + 1
-		tweet = 'Chocolate ' + str (now.hour) + ':' + str (now.minute) + '.'
-	else:
-		x = x + 1
-		tweet = 'Vainilla ' + str (now.hour) + ':' + str (now.minute)	+ '.'
+			api.update_status(status = reply)
 
-	api.update_status(status = tweet)
-	msj = "Tweet nro: " + str (x) + "			" + str (now.hour) + ":" + str (now.minute) 
-	print (" ")
-	print (msj)
-
-	time.sleep (1800)
-
-'''
-for tweet in Cursor (api.search, q='Star Wars').items():
-	try:
-		print ('\nTweet by: @' + tweet.user.screen_name)
-
-		tweet.retweet()
-		print ('\t\t\tRetweeted the tweet')
-
-		time.sleep (1800)
+			print("Tweet contestado: " + reply)
+			write_id(tweet.id)
 
 	except TweepError as e:
 		print (e.reason)
@@ -79,6 +60,15 @@ for tweet in Cursor (api.search, q='Star Wars').items():
 		break
 
 
-		tweet.favorite ()
-		print ('\t\t\tFavorited the tweet')
-'''
+	if (now.hour % 2 == 0):
+		word = 'Chocolate'
+	else:
+		word = 'Vainilla'
+	
+	tweet_data = word + ' ' + now.strftime("%H:%M") + '.'
+	api.update_status(status = tweet)
+	
+	log_tweet(run, now)
+
+	time.sleep (1800)
+	run = run + 1
