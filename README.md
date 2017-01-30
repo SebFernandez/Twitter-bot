@@ -7,4 +7,3 @@ The objective of the bot is to assist through specific tweet commands. Meanwhile
 - [X] Tweet.
 - [X] Reply.
 - [X] Retweet.
-- [ ] Replies to command tweet.
