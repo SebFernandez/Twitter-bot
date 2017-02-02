@@ -84,6 +84,7 @@ while True:
 
 					write_id(tweet.id)
 
+		#Stops the iteration and put in the log the error.
 		except TweepError as e:
 			print ("\n\n>>>\tUser: @" + tweet.user.screen_name + "   status: " +str (tweet.id) + "   time: " + str (tweet.created_at))
 			print (">>>\t" + tweet.text)
