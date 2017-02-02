@@ -18,6 +18,7 @@ def sentence ():
 def read_ids():
 	f = open("IDS.txt", "r")
 	ids = f.read()
+	ids = int (ids)
 	f.close()
 	return ids
 
