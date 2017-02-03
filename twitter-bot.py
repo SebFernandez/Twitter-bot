@@ -95,7 +95,7 @@ while True:
 			break
 
 	#Normal tweets.
-	if (now.hour % 2 == 0):
+	if (now.hour + now.minute + now.second % 2 == 0):
 		word = 'Chocolate'
 	else:
 		word = 'Vainilla'
