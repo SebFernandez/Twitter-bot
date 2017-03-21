@@ -11,7 +11,6 @@ api = API(auth)
 class CustomStreamListener(StreamListener):
 
 	def on_status (self, status):
-		#print (data)
 		record = {'Text': status.text, 'User': status.author.screen_name, 'Time': str (status.created_at)}
 		print ("U: " + record ['User'] + "\n" + "T: " +  record ['Text'] + "\n" + 'H: ' + record ['Time'])
 		print ("--------------------------------------------------------------------------------\n")
@@ -19,9 +18,9 @@ class CustomStreamListener(StreamListener):
 	def on_error(self, status_code):
 		print (status_code)
 		if status_code == 420:
-			return False #returning False in on_data disconnects the stream
+			return False #returning False in on_data disconnects the stream.
 
 if __name__ == '__main__':
     listener = CustomStreamListener()
     twitterStream = Stream(auth, listener)
-    twitterStream.filter(follow=['XXXXX'])
+    twitterStream.filter(follow=['XXXXX'])	#Here goes the Twitter ID.
