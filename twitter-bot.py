@@ -29,10 +29,11 @@ def write_id(id):
 	f.close()
 
 #Log to have a look for the tweets tweeted. 
-def log_tweet(x, now):
-	msj = "Tweet nro: " + str (x) + "			" + now.strftime("%H:%M") 
+def log_tweet(x, tweet):
+	msj = "Tweet: " + tweet
+	num = "Nro: " + str (x)
 	print (" ")
-	print (msj)
+	print (msj + "              " + num)
 
 #Log for the replying tweet.
 def info_tweet (replyname, text, reply):
@@ -53,7 +54,7 @@ api = API(auth)
 IDS = read_ids()
 
 
-run = 0		#run is the counter of tweets tweeted
+run = 1		#run is the counter of tweets tweeted
 while True:
 	now = datetime.now()
 	tweets = api.search(q='@Bot_en_gel', since_id = IDS) #Looks for mentions.
@@ -66,6 +67,17 @@ while True:
 				if (tweet.text == "@Bot_en_gel draw!"):
 					replyname = tweet.user.screen_name	#Gets the user name.
 					sent = drawing ()
+					reply = "@" + replyname + " " + sent
+
+					api.update_status(status = reply)	#Tweet!
+
+					info_tweet (replyname, tweet.text, reply)
+
+					write_id(tweet.id)
+
+				elif (tweet.text == "@Bot_en_gel scream!"):
+					replyname = tweet.user.screen_name
+					sent = random.randrange (1,10) * 'A' + random.randrange (1,10) * 'H'
 					reply = "@" + replyname + " " + sent
 
 					api.update_status(status = reply)	#Tweet!
@@ -95,7 +107,9 @@ while True:
 			break
 
 	#Normal tweets.
-	if (now.hour + now.minute + now.second % 2 == 0):
+	if (now.minute == 0):
+		word = 'BOOOOOOOOOOOOOOOOOONG'
+	elif (random.randrange (1, 10) % 2 == 0):
 		word = 'Chocolate'
 	else:
 		word = 'Vainilla'
@@ -103,8 +117,8 @@ while True:
 	tweet = word + ' ' + now.strftime("%H:%M") + '.'
 	api.update_status(status = tweet)	#Tweet!
 	
-	log_tweet(run, now)
+	log_tweet(run, tweet)
 	print ("--------------------------------------------------------------------------------")
 
 	run = run + 1
-	time.sleep (1800)	#30 minutes.
+	time.sleep (random.randrange (1,43200))	#30 minutes.
