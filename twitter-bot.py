@@ -121,4 +121,4 @@ while True:
 	print ("--------------------------------------------------------------------------------")
 
 	run = run + 1
-	time.sleep (random.randrange (1,43200))	#30 minutes.
+	time.sleep (random.randrange (1,43200))	#Random time. 43200 sec = 12 hours.
