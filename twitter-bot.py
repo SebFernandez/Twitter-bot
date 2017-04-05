@@ -64,7 +64,60 @@ while True:
 			if re.search ('^@Bot_en_gel', tweet.text):
 				tweet.retweet()
 
-				if (tweet.text == "@Bot_en_gel draw!"):
+				if (tweet.text == "@Bot_en_gel hola." or tweet.text == "@Bot_en_gel hola"):
+					replyname = tweet.user.screen_name
+					R = random.randrange (0, 2)
+					if (R == 0):
+						sent = "Hola!"
+						reply = "@" + replyname + " " + sent
+						
+						api.update_status(status = reply)	#Tweet!
+
+						info_tweet (replyname, tweet.text, reply)
+
+						write_id(tweet.id)
+					else:
+						sent = "Chau chau!"
+						reply = "@" + replyname + " " + sent
+						
+						api.update_status(status = reply)	#Tweet!
+
+						info_tweet (replyname, tweet.text, reply)
+
+						write_id(tweet.id)
+
+				elif (tweet.text == "@Bot_en_gel hello." or tweet.text == "@Bot_en_gel hello"):
+					replyname = tweet.user.screen_name
+					R = random.randrange (0, 2)
+					if (R == 0):
+						sent = "Hey!"
+						reply = "@" + replyname + " " + sent
+						
+						api.update_status(status = reply)	#Tweet!
+
+						info_tweet (replyname, tweet.text, reply)
+
+						write_id(tweet.id)
+					else:
+						sent = "XOXO."
+						reply = "@" + replyname + " " + sent
+						
+						api.update_status(status = reply)	#Tweet!
+
+						info_tweet (replyname, tweet.text, reply)
+
+						write_id(tweet.id)
+				elif (tweet.text == "@Bot_en_gel puto." or tweet.text == "@Bot_en_gel puto" or tweet.text == "@Bot_en_gel puta." or tweet.text == "@Bot_en_gel puta"):
+					replyname = tweet.user.screen_name
+					sent = "puto."
+					reply = "@" + replyname + " " + sent
+					api.update_status(status = reply)	#Tweet!
+
+					info_tweet (replyname, tweet.text, reply)
+
+					write_id(tweet.id)
+
+				elif (tweet.text == "@Bot_en_gel draw!"):
 					replyname = tweet.user.screen_name	#Gets the user name.
 					sent = drawing ()
 					reply = "@" + replyname + " " + sent
@@ -107,12 +160,19 @@ while True:
 			break
 
 	#Normal tweets.
+	RandWord = random.randrange (0, 11)
 	if (now.minute == 0):
 		word = 'BOOOOOOOOOOOOOOOOOONG'
-	elif (random.randrange (1, 10) % 2 == 0):
+	elif (RandWord % 2 == 0):
 		word = 'Chocolate'
-	else:
+	elif (RandWord % 3 == 0):
 		word = 'Vainilla'
+	elif (RandWord % 5 == 0):
+		word = 'Whiskey'
+	elif (RandWord % 7 == 0):
+		word = 'Mint'
+	elif (RandWord == 0):
+		word = 'Cheese 666'
 	
 	tweet = word + ' ' + now.strftime("%H:%M") + '.'
 	api.update_status(status = tweet)	#Tweet!
