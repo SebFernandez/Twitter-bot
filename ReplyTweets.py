@@ -65,7 +65,7 @@ api = API(auth)
 
 class CustomStreamListener(StreamListener):
 
-	def on_tweet (self, status):
+	def on_status (self, status):
 		mention = {'Text': status.text, 'User': status.author.screen_name, 'ID': status.id}
 		TweetText = mention ['Text']
 		TweetText = TweetText [0] + TweetText [1:len (TweetText)].lower ()
@@ -94,4 +94,4 @@ class CustomStreamListener(StreamListener):
 if __name__ == '__main__':
     listener = CustomStreamListener()
     twitterStream = Stream(auth, listener)
-    twitterStream.filter(follow=['XXXXX'])	#Here goes the Twitter ID. 
+    twitterStream.filter(follow=['823994056829177856'])	#Here goes the Twitter ID. 
