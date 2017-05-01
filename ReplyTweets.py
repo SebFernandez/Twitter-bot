@@ -9,6 +9,7 @@ def info_tweet (replyname, text, reply):
 	print ("\t\tUser   : " + replyname)
 	print ("\t\tMention: " + text)
 	print ("\t\tAnswer : " + reply + "\n\n")
+	print ("--------------------------------------------------------------------------------")
 
 #When there is a tweet saying 'draw!', replies with a drawing.
 def drawing ():
@@ -74,14 +75,17 @@ class CustomStreamListener(StreamListener):
 			write_id (mention['ID'])
 			if (TweetText [12:17] == 'draw!' or TweetText [12:16] == 'draw'):
 				reply = "@" + mention ['User'] + " " + drawing ()
-			elif (TweetText [12:18] == 'scream!' or TweetText [12:17] == 'scream'): 
+			elif (TweetText [12:19] == 'scream!' or TweetText [12:18] == 'scream'): 
 				reply = "@" + mention ['User'] + " " + scream ()
 			elif (random.randrange (0,2) == 0):
 				reply = "@" + mention ['User'] + " " + greetings ()
 			else:
 				reply = "@" + mention ['User'] + " " + sentence ()
-
-		api.update_status(status = reply)	#Tweet!
+		else:
+			reply = ''
+		if (reply != ''):
+			api.update_status(status = reply)	#Tweet!	
+		
 		info_tweet (str (mention ['User']), str (mention ['Text']), reply)
 		write_id (mention ['ID'])
 
@@ -94,4 +98,4 @@ class CustomStreamListener(StreamListener):
 if __name__ == '__main__':
     listener = CustomStreamListener()
     twitterStream = Stream(auth, listener)
-    twitterStream.filter(follow=['823994056829177856'])	#Here goes the Twitter ID. 
+    twitterStream.filter(track=['@Bot_en_gel'])	#Here goes the Twitter ID. 
