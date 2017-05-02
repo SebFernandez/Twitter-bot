@@ -65,7 +65,6 @@ auth.set_access_token(access_token, access_token_secret)
 api = API(auth)
 
 class CustomStreamListener(StreamListener):
-
 	def on_status (self, status):
 		mention = {'Text': status.text, 'User': status.author.screen_name, 'ID': status.id}
 		TweetText = mention ['Text']
@@ -89,11 +88,19 @@ class CustomStreamListener(StreamListener):
 		info_tweet (str (mention ['User']), str (mention ['Text']), reply)
 		write_id (mention ['ID'])
 
-
 	def on_error(self, status_code):
-		print (status_code)
+		print ("\n\nERROR: " + status_code)
 		if status_code == 420:
 			return False #returning False in on_data disconnects the stream.
+
+	def on_timeout (self):
+		print ("\n\nTIMEOUT: " + self)
+		
+	def on_disconnect (self, notice):
+		print ("\n\nDisconnect: " + "\n\tCode: " + notice.code + "\n\tName: " + notice.stream_name + "\n\tReason: " + notice.reason)
+
+	def on_warning (self, notice):
+		print ("\n\nWARNING: " + notice)
 
 if __name__ == '__main__':
     listener = CustomStreamListener()
