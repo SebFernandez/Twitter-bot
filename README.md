@@ -2,4 +2,4 @@
 
 The objective of the bot is to assist through specific tweet commands. Meanwhile, it will tweet within 30 minutes. 
 
-**Made with Python and :heart: .**
+**Made with Python and love:heart:.**
