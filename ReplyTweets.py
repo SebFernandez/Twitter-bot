@@ -45,20 +45,6 @@ def greetings ():
 		text = 'HUEHUEHUEHUEHUEHUE.'
 	return text
 
-#Checks tweet ID to know if it has to RT and reply.
-def read_ids():
-	f = open("IDS.txt", "r")
-	ids = f.read()
-	ids = int (ids)
-	f.close()
-	return ids
-
-#Once it replies and RT, writes the tweet ID
-def write_id(id):
-	f = open("IDS.txt", "w")
-	f.write(str(id))
-	f.close() 
-
 #OAUTH
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
