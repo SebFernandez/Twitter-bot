@@ -17,10 +17,9 @@ api = API(auth)
 run = 0
 
 while True:	
-	Norris = requests.get('http://api.icndb.com/jokes/random').json()
-	joke = Norris ['value']['joke']
-	if (len (joke) <= 140):
-		word = joke
+	Norris = requests.get('http://api.icndb.com/jokes/random').json()['value']['joke']
+	if (len (Norris) <= 140):
+		word = Norris
 		break
 
 api.update_status(status = word)	#Tweet!
