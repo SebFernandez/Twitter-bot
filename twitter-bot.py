@@ -16,15 +16,16 @@ api = API(auth)
 
 run = 0
 
-while True:	
-	Norris = requests.get('http://api.icndb.com/jokes/random').json()['value']['joke']
-	if (len (Norris) <= 140):
-		word = Norris
-		break
+while True:
+	while True:
+		Norris = requests.get('http://api.icndb.com/jokes/random').json()['value']['joke']	#get ('LINK').json[dictionary]
+		if (len (Norris + " #ChuckNorris #God") <= 140):
+			word = Norris + " #ChuckNorris #God"
+			break
 
-api.update_status(status = word)	#Tweet!
-log_tweet(run, word)
-print ("--------------------------------------------------------------------------------")
+	api.update_status(status = word)	#Tweet!
+	log_tweet(run, word)
+	print ("--------------------------------------------------------------------------------")
 
-run = run + 1
-time.sleep (random.randrange (1,14400))	#Random time. 14400 sec = 4 hours.
+	run = run + 1
+	time.sleep (random.randrange (1,14400))	#Random time. 14400 sec = 4 hours.
